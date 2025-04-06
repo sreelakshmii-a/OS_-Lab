@@ -2,7 +2,7 @@
 #include <stdbool.h>
 
 void main() {
-    int n,m,i,j,k;
+    int n,m,i,j,k,f=0;
 
     printf("Enter the number of processes: ");
     scanf("%d", &n);
@@ -36,15 +36,19 @@ void main() {
         finish[i] = 0;
         for (j = 0; j < m; j++) {
             need[i][j] = max[i][j] - allocation[i][j];
+            need[i][j]=0;
             
         }
     }
-
+    for (i = 0; i < n; i++){
+        finish[i]=0;
+    }
+   
     // Banker's Algorithm
     
     while (c < n) {
-       int f=0;
-
+      
+        int f=0;
         for (i = 0; i < n; i++) {
             int g=0;
             if (finish[i]==0) {
@@ -56,25 +60,31 @@ void main() {
                 }
                 if(g==m){
                   for (k = 0; k< m; k++){
-                        work[c][k]=available[j];
-                        available[j] += allocation[i][j];
+                        
+                        work[c][k]=available[k];
+                        available[k]+=allocation[i][k];
+                        
                         
                   }
-                  safe[c]=i+1;
+                  safe[c++]=i;
                   f=1;
                   finish[i]=1;
+                  c++;
+                  
                 }
               }
-            break;
+            
             
             }
+         break;   
     }
-
     
 
+   
+
 
     
-    printf("\nPID\tAllocation\tMax\t\tNeed\n");
+    printf("\nPID\tAllocation\tMax\tNeed\tAvailable\n");
     for (i = 0; i < n; i++) {
         printf("P%d\t", i);
         for (j = 0; j < m; j++)
@@ -94,16 +104,16 @@ void main() {
         printf("\n");
     }
 
+    
     if(c==n){
-    printf("\nSystem is in a safe state.\nSafe sequence is: ");
-    for (i = 0; i < n; i++)
-        printf("P%d ", safe[i]);
-    printf("\n");
-    }
-    else{
-      printf("System not safe");
-    }
-  
+        printf("\nSystem is in a safe state.\nSafe sequence is: ");
+        for (i = 0; i < n; i++)
+            printf("P%d ", safe[i]);
+        printf("\n");
+        }
+        else{
+          printf("System not safe");
+        }
 
     
 }
