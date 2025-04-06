@@ -70,8 +70,8 @@ void LRU(int pages[],int n,int frames){
     time[i]=-1;
   }
   for(int i=0;i<n;i++){
-    int found=0,lrindex=0;
-    for(int j=0;j<frames;j++){
+    int found=0,lrindex=0;  
+        for(int j=0;j<frames;j++){
       if(f[j]==pages[i]){
         found=1;
         time[j]=clock++;
