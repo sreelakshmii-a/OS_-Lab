@@ -146,7 +146,7 @@ void main()
     printf("enter total of each process\n");
     for(int i=0;i<m;i++)
     {   
-            scanf("%d",&total[i]); 
+            scanf("%d",&total[i]);         
             avail[i]=0;  
     }
     for(int i=0;i<m;i++)
